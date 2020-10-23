@@ -1,6 +1,6 @@
 const { basename, extname, relative } = require('path');
 const { getOptions } = require('loader-utils');
-const VirtualModules = require('./lib/virtual');
+const VirtualModules = require('webpack-virtual-modules');
 
 const hotApi = require.resolve('./lib/hot-api.js');
 
