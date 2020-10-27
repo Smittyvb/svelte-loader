@@ -177,9 +177,7 @@ module.exports = function(source, map) {
 
 			js.code = js.code + `\nimport '${posixify(cssFilepath)}';\n`;
 
-			if (virtualModules) {
-				virtualModules.writeModule(cssFilepath, css.code);
-			}
+			virtualModules.writeModule(cssFilepath, css.code);
 		}
 
 		callback(null, js.code, js.map);
