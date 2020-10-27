@@ -111,6 +111,7 @@ module.exports = function(source, map) {
 	}
 
 	const virtualModules = virtualModuleInstances.get(this._compiler);
+	assert.ok(virtualModules, "Failed to get virtualModules instance");
 
 	this.cacheable();
 	
