@@ -107,7 +107,7 @@ module.exports = function(source, map) {
 	if (!virtualModuleInstances.has(this._compiler)) {
 		const plugin = new VirtualModules(this._compiler);
 		plugin.apply(this._compiler);
-		virtualModuleInstances.set(this._compiler);
+		virtualModuleInstances.set(this._compiler, plugin);
 	}
 
 	const virtualModules = virtualModuleInstances.get(this._compiler);
