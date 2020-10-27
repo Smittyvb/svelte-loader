@@ -1,6 +1,7 @@
 const { basename, extname, relative } = require('path');
 const { getOptions } = require('loader-utils');
 const VirtualModules = require('webpack-virtual-modules');
+const assert = require('assert').strict;
 
 const hotApi = require.resolve('./lib/hot-api.js');
 
@@ -101,7 +102,9 @@ const virtualModuleInstances = new Map();
 module.exports = function(source, map) {
 	// this._compiler refers to the Webpack compiler instance:
 	// https://webpack.js.org/api/loaders/#this_compiler
-	if (this._compiler && !virtualModuleInstances.has(this._compiler)) {
+
+	assert.ok(this._compiler, 'No _compiler from Webpack');
+	if (!virtualModuleInstances.has(this._compiler)) {
 		const plugin = new VirtualModules(this._compiler);
 		plugin.apply(this._compiler);
 		virtualModuleInstances.set(this._compiler);
@@ -168,7 +171,7 @@ module.exports = function(source, map) {
 			if (css.code) {
 				css.code += '\n/*# sourceMappingURL=' + css.map.toUrl() + '*/';
 			} else {
-				css.code = ""; // always generate CSS
+				css.code = ''; // always generate CSS
 			}
 			const cssFilepath = compileOptions.filename.replace(
 				/\.[^/.]+$/,
