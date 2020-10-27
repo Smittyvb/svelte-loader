@@ -17,7 +17,7 @@
   "dependencies": {
     "loader-utils": "^1.1.0",
     "svelte-dev-helper": "^1.1.9",
-    "webpack-virtual-modules": "Smittyvb/webpack-virtual-modules#apply-now"
+    "webpack-virtual-modules": "file:../webpack-virtual-modules"
   },
   "devDependencies": {
     "chai": "^4.1.2",

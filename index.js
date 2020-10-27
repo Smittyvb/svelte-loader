@@ -1,6 +1,6 @@
 const { basename, extname, relative } = require('path');
 const { getOptions } = require('loader-utils');
-const VirtualModules = require('webpack-virtual-modules');
+const VirtualModules = require('webpack-virtual-modules/lib').default;
 const assert = require('assert').strict;
 
 const hotApi = require.resolve('./lib/hot-api.js');
@@ -105,7 +105,7 @@ module.exports = function(source, map) {
 
 	assert.ok(this._compiler, 'No _compiler from Webpack');
 	if (!virtualModuleInstances.has(this._compiler)) {
-		const plugin = new VirtualModules(this._compiler);
+		const plugin = new VirtualModules();
 		plugin.apply(this._compiler, true);
 		virtualModuleInstances.set(this._compiler, plugin);
 	}
