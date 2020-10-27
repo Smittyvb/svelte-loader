@@ -164,7 +164,8 @@ module.exports = function(source, map) {
 			js.code = makeHot(id, js.code, hotOptions);
 		}
 
-		if (options.emitCss && css.code) {
+		if (options.emitCss) {
+			if (!css.code) css.code = ""; // always generate CSS
 			const cssFilepath = compileOptions.filename.replace(
 				/\.[^/.]+$/,
 				`.svelte.css`
