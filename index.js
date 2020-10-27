@@ -99,8 +99,12 @@ function deprecatePreprocessOptions(options) {
 const virtualModuleInstances = new Map();
 
 module.exports = function(source, map) {
+	// this._compiler refers to the Webpack compiler instance:
+	// https://webpack.js.org/api/loaders/#this_compiler
 	if (this._compiler && !virtualModuleInstances.has(this._compiler)) {
-		virtualModuleInstances.set(this._compiler, new VirtualModules(this._compiler));
+		const plugin = new VirtualModules(this._compiler);
+		plugin.apply(this._compiler);
+		virtualModuleInstances.set(this._compiler);
 	}
 
 	const virtualModules = virtualModuleInstances.get(this._compiler);
