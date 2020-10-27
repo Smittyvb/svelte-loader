@@ -106,7 +106,7 @@ module.exports = function(source, map) {
 	assert.ok(this._compiler, 'No _compiler from Webpack');
 	if (!virtualModuleInstances.has(this._compiler)) {
 		const plugin = new VirtualModules(this._compiler);
-		plugin.apply(this._compiler);
+		plugin.apply(this._compiler, true);
 		virtualModuleInstances.set(this._compiler, plugin);
 	}
 
