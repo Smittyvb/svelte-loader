@@ -35,7 +35,7 @@ Configure inside your `webpack.config.js`:
         use: 'svelte-loader'
       },
       {
-        // required to prevent errors from Svelte
+        // required to prevent errors from Svelte on Webpack 5+
         test: /node_modules\/svelte\/.*\.mjs$/,
         resolve: {
           fullySpecified: false
