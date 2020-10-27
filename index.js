@@ -165,13 +165,16 @@ module.exports = function(source, map) {
 		}
 
 		if (options.emitCss) {
-			if (!css.code) css.code = ""; // always generate CSS
+			if (css.code) {
+				css.code += '\n/*# sourceMappingURL=' + css.map.toUrl() + '*/';
+			} else {
+				css.code = ""; // always generate CSS
+			}
 			const cssFilepath = compileOptions.filename.replace(
 				/\.[^/.]+$/,
 				`.svelte.css`
 			);
 
-			css.code += '\n/*# sourceMappingURL=' + css.map.toUrl() + '*/';
 			js.code = js.code + `\nimport '${posixify(cssFilepath)}';\n`;
 
 			if (virtualModules) {
