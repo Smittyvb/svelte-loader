@@ -99,16 +99,15 @@ function deprecatePreprocessOptions(options) {
 const virtualModuleInstances = new Map();
 
 module.exports = function(source, map) {
-	if (this._compiler && !virtualModuleInstances.has(this._compiler)) {
-		virtualModuleInstances.set(this._compiler, new VirtualModules(this._compiler));
-	}
-
-	const virtualModules = virtualModuleInstances.get(this._compiler);
-
 	this.cacheable();
 	
 	const options = Object.assign({}, getOptions(this));
 	const callback = this.async();
+
+	if (this._compiler && !virtualModuleInstances.has(this._compiler) && options.emitCss) {
+		virtualModuleInstances.set(this._compiler, new VirtualModules(this._compiler));
+	}
+	const virtualModules = virtualModuleInstances.get(this._compiler);
 
 	const isServer = this.target === 'node' || (options.generate && options.generate == 'ssr');
 	const isProduction = this.minimize || process.env.NODE_ENV === 'production';
